@@ -1,12 +1,13 @@
 import React from "react";
-import EmployeeList from "./employee/EmployeeList";
-import RegistratioForm from "./employee/RegistratioForm";
-
+import Sidebar from "./employee/Sidebar";
+import { Outlet } from "react-router-dom";
 const Layout = () => {
   return (
-    <div className="w-[82%] h-auto bg-[#12081E]">
-      {/* <EmployeeList /> */}
-      <RegistratioForm />
+    <div className="flex flex-wrap justify-start">
+      <Sidebar />
+      <div className="w-[80%]">
+        <Outlet />
+      </div>
     </div>
   );
 };

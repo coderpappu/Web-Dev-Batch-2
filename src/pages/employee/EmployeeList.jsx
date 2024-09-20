@@ -38,7 +38,7 @@ const EmployeeList = () => {
   ));
 
   return (
-    <div className="w-full h-[700px] px-6 pt-4 text-white">
+    <div className="w-full h-[700px] pt-4 text-white">
       {/* employee page header  */}
       <div className="flex flex-wrap justify-between items-center">
         <h1 className="text-xl font-medium">Payroll</h1>
