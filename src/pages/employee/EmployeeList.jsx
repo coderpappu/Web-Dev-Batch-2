@@ -54,7 +54,7 @@ const EmployeeList = () => {
 
       {/* employee table  */}
       <table className="w-full mt-3">
-        <thead className="bg-[#22182D] h-[50px] border-b border-[#3f2d54]">
+        <thead className="bg-[#22182D] dark:bg-dark-layer h-[50px] border-b border-[#3f2d54]">
           <tr className="">
             <th>Name</th>
             <th>Position</th>
@@ -65,7 +65,7 @@ const EmployeeList = () => {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody className="w-full text-center bg-[#22182D] mt-2">
+        <tbody className="w-full text-center bg-[#22182D] dark:bg-dark-card  mt-2">
           {content}
         </tbody>
       </table>
