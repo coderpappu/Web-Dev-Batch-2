@@ -1,31 +1,51 @@
-import { useState } from "react";
-import EmployeeListData from "../../utils/data";
-
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import db from "../../../firebase";
 const EmployeeList = () => {
-  const [data, setData] = useState(EmployeeListData);
-  const [searchDept, setSearchDept] = useState("");
-  // search handler
+  const [data, setData] = useState([]);
 
-  const searchHandler = (event) => {
-    event.preventDefault();
-    let filteredData = EmployeeListData.filter(
-      (employeeData) =>
-        employeeData.position.toLowerCase() == searchDept.toLowerCase()
-    );
-    if (searchDept == "") {
-      setData(EmployeeListData);
-    } else {
-      setData(filteredData);
+  const [searchDept, setSearchDept] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
+  const datacheck = async () => {
+    try {
+      const employeeRef = collection(db, "employees");
+      const querySnapshot = await getDocs(employeeRef);
+
+      const employees = querySnapshot.docs.map((employee) => employee.data());
+      // Set the fetched data to a variable
+      setData(employees); // Update state with fetched data
+    } catch (error) {
+      console.error("Error fetching documents: ", error);
     }
   };
 
-  console.log(searchDept);
-  console.log(data);
-  let content = data.map((employee, index) => (
-    <tr className="border-b h-[50px] border-[#3f2d54]" key={employee.id}>
+  // datacheck();
+
+  useEffect(() => {
+    datacheck();
+  }, []);
+
+  const searchHandler = (event) => {
+    event.preventDefault();
+    // employeeData?.Position.toLowerCase() === searchDept.toLowerCase()
+    let filteredData = data.filter(
+      (employeeData) =>
+        employeeData?.position.toLowerCase() === searchDept.toLowerCase()
+    );
+
+    if (searchDept === "") {
+      setFilteredData(data);
+    } else {
+      setFilteredData(filteredData);
+    }
+  };
+
+  let content = filteredData.map((employee, index) => (
+    <tr className="border-b h-[50px] border-[#3f2d54]" key={index}>
       <td>{employee.name}</td>
-      <td className=" flex justify-center items-center ">
-        <div className="bg-[#F8D8AB]  p-[3px] rounded-2xl text-black ">
+      <td className="flex justify-center items-center">
+        <div className="bg-[#F8D8AB] p-[3px] rounded-2xl text-black">
           {employee.position}
         </div>
       </td>
@@ -38,10 +58,11 @@ const EmployeeList = () => {
   ));
 
   return (
-    <div className="w-full h-[700px] pt-4 text-white">
-      {/* employee page header  */}
+    <div className="text-white w-full h-[700px] pt-8">
       <div className="flex flex-wrap justify-between items-center">
-        <h1 className="text-xl font-medium">Payroll</h1>
+        <h1 className="text-xl font-bold">Payroll</h1>
+
+        {/* search bar */}
         <form onSubmit={searchHandler}>
           <input
             type="text"
@@ -52,11 +73,11 @@ const EmployeeList = () => {
         </form>
       </div>
 
-      {/* employee table  */}
+      {/* employee table */}
       <table className="w-full mt-3">
-        <thead className="bg-[#22182D] dark:bg-dark-layer h-[50px] border-b border-[#3f2d54]">
-          <tr className="">
-            <th>Name</th>
+        <thead className="bg-[#22182D] dark:bg-dark-layer border-b border-[#3f2d54] h-[50px]">
+          <tr className="rounded-md">
+            <th>Home</th>
             <th>Position</th>
             <th>Rate</th>
             <th>Period</th>
@@ -65,7 +86,7 @@ const EmployeeList = () => {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody className="w-full text-center bg-[#22182D] dark:bg-dark-card  mt-2">
+        <tbody className="text-center w-full bg-[#22182D] dark:bg-dark-card mt-3">
           {content}
         </tbody>
       </table>

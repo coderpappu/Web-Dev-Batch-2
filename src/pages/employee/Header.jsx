@@ -1,13 +1,13 @@
 import React from "react";
-import { CiDark } from "react-icons/ci";
-import { CiLight } from "react-icons/ci";
-
+import { CiDark, CiLight } from "react-icons/ci";
+import { Link } from "react-router-dom";
 const Header = ({ handler, modeCheck }) => {
-  console.log(modeCheck);
   return (
     <div className="w-full dark:bg-dark-layer py-2 flex flex-wrap justify-between items-center px-3">
       <div>
-        <h2 className="text-white text-xl font-semibold">Codex Devware</h2>
+        <h2 className="text-blue dark:text-white text-xl font-semibold">
+          <Link to="/"> Codex Devware</Link>
+        </h2>
       </div>
       <div className="w-[50px] h-[45px] p-2 bg-dark-card text-white rounded-md">
         {modeCheck ? (

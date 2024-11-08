@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import EmployeeList from "./pages/employee/EmployeeList";
 import RegistrationForm from "./pages/employee/RegistratioForm";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 
-import Layout from "./pages/Layout";
 import App from "./App";
+import Signin from "./pages/Signin";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,12 +16,16 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: "/",
+        path: "/list",
         element: <EmployeeList />,
       },
       {
         path: "/registrationform",
         element: <RegistrationForm />,
+      },
+      {
+        path: "/login",
+        element: <Signin />,
       },
     ],
   },

@@ -1,9 +1,13 @@
-import Sidebar from "./employee/Sidebar";
+import { useEffect, useState } from "react";
+
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+
 import Header from "./employee/Header";
-import { useEffect } from "react";
+import Sidebar from "./employee/Sidebar";
+
 const Layout = () => {
+  
+
   const [mode, setMode] = useState(false);
 
   // check local storage for dark mode
@@ -33,7 +37,7 @@ const Layout = () => {
       {/* content box  */}
       <div className="w-[80%]">
         <Header handler={handlerMode} modeCheck={mode} />
-        <Outlet />
+      <Outlet /> 
       </div>
     </div>
   );
